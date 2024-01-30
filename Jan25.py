@@ -1,4 +1,32 @@
-#Types & Structures $100 - Which data type is surrounded by quotation marks?
+#Topic 4 $100
+class String:
+    def __init__(self, string):
+        self.string=string
+    def remove_left_three(self):
+        print(self.string[3:])
+a=String("Name of string")
+a.remove_left_three()
+#Topic 5 $200
+#import, false, true, list, return
+#Topic 2 $500
+#Nothing is printed because the break statement is before the print statement
+#Topic 1 $300
+#Tuple
+#Topic 3 $300
+#9
+#Topic 2 $200
+# += or -=
+#Topic 4 $400
+#It simply ties things to that particular instance of a class, aka an object
+#Topic 5 $300
+#It returns an output and stores it.
+#Topic 3 $200
+#str()
+#Topic 3 $400
+#Parameters are the rules of a function that you establish when you define a function, arguments are what you plug in when you call a function.
+#Topic 1 $200
+#float
+#Topic 1 $100 - Which data type is surrounded by quotation marks?
 #Strings.
 #Topic 5 $400 - What is the difference between a local variable and a global variable?
 #Global variables are used anywhere in your code while local are only used within a certain scope (ex: functions).
