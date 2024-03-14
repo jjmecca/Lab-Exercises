@@ -1,0 +1,20 @@
+from bs4 import BeautifulSoup
+import requests
+import html5lib
+import csv
+'''
+source = requests.get("https://www.scrapethissite.com/pages/").text
+soup = BeautifulSoup(source)
+
+for element in soup.find_all("div",class_="page"):
+    desc=element.p.text.strip()
+    title=element.a.text
+    print(title, "|", desc)
+'''
+
+source = requests.get("https://www.scrapethissite.com/pages/simple/").text
+soup = BeautifulSoup(source)
+print(soup)
+
+for element in soup.find_all(class_="country"):
+    print(element.text.strip())
