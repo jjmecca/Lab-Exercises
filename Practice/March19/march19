@@ -1,0 +1,12 @@
+from bs4 import BeautifulSoup
+import requests
+import html5lib
+
+source = requests.get("https://books.toscrape.com/catalogue/page-1.html").text
+soup = BeautifulSoup(source)
+book_info=soup.find("article",class_="product_pod")
+
+for book_info in soup.find_all("article",class_="product_pod"):
+    title=book_info.h3.a['title']
+    price=book_info.find("p",class_="price_color").text[1:]
+    print(title, "|", price)
