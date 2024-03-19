@@ -10,3 +10,6 @@ for book_info in soup.find_all("article",class_="product_pod"):
     title=book_info.h3.a['title']
     price=book_info.find("p",class_="price_color").text[1:]
     print(title, "|", price)
+
+'''Our project is going good so far. We are still doing 
+a lot of research and developing how we want to structure our project.'''
