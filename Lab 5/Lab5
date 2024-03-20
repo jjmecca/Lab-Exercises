@@ -1,0 +1,34 @@
+from bs4 import BeautifulSoup
+import requests
+import html5lib
+import csv
+
+#1
+'''source = requests.get("https://tedboy.github.io/bs4_doc/1_quick_start.html").text
+soup = BeautifulSoup(source)
+
+for p in soup.find_all("p"):
+    print(p.text)
+
+#2
+source2 = requests.get("https://quotes.toscrape.com/").text
+soup2 = BeautifulSoup(source2)
+print(soup2)
+
+for quote in soup2.find_all("div",class_="quote"):
+    print(quote.span.text, " -",quote.find("small",class_="author").text)
+'''
+#3
+source3 = requests.get("https://www.imdb.com/list/ls055592025/").text
+soup3 = BeautifulSoup(source3)
+csv_file=open("movies.csv","w")
+csv_writer=csv.writer(csv_file)
+csv_writer. writerow(["Ranking","Movie Title","Year"])
+
+for movie in soup3.find_all("h3", class_="lister-item-header"):
+    rank=movie.find("span",class_="lister-item-index unbold text-primary").text
+    title=movie.a.text
+    year=movie.find("span",class_="lister-item-year text-muted unbold").text
+
+    csv_writer.writerow([rank,title,year])
+csv_file.close()
