@@ -2,10 +2,38 @@ from bs4 import BeautifulSoup
 import requests
 import html5lib
 import csv
-
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+page=1
 library=requests.get("https://www.loc.gov/search/?q=cats&sp=1").text
 soup=BeautifulSoup(library)
 
-for element in soup.find_all("div", class_="item-description"):
-    print(element.span.a.text.strip())
-    print(element.find("span",class_="item-description-abstract").text.strip(),"\n")
+while page<=5:
+    page+=1
+    for element in soup.find_all("div", class_="item-description"):
+        print(element.span.a.text.strip())
+        try:
+            print(element.find("span",class_="item-description-abstract").text.strip(),"\n")
+        except:
+            print("No Description\n")
+    soup=BeautifulSoup(requests.get(f"https://www.loc.gov/search/?q=cats&sp={page}").text)
+'''
+driver = webdriver.Chrome()
+driver.get("https://www.loc.gov/search/?q=cats&sp=1")
+
+page=1
+for element in driver.find_elements(By.CLASS_NAME, "item-description"):
+    page+=1
+    print(element.find_element(By.CSS_SELECTOR,"span.item-description-title").text)
+    print(element.find_element(By.CSS_SELECTOR,"span.item-description-abstract").text,"\n")
+    driver.find_element(By.PARTIAL_LINK_TEXT, page).click()
+    if(page==5):
+        break
+
+time.sleep(5)
+driver.quit'''
