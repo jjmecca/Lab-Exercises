@@ -9,31 +9,39 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+
+#1
 page=1
 library=requests.get("https://www.loc.gov/search/?q=cats&sp=1").text
 soup=BeautifulSoup(library)
+csv_file=open("cat_site.csv","w")
+csv_writer=csv.writer(csv_file)
+csv_writer.writerow(["Title","Description"])
 
 while page<=5:
     page+=1
     for element in soup.find_all("div", class_="item-description"):
-        print(element.span.a.text.strip())
+        title=element.span.a.text.strip()
         try:
-            print(element.find("span",class_="item-description-abstract").text.strip(),"\n")
+            desc=element.find("span",class_="item-description-abstract").text.strip()
         except:
-            print("No Description\n")
+            desc="No Description"
+        csv_writer.writerow([title,desc])
     soup=BeautifulSoup(requests.get(f"https://www.loc.gov/search/?q=cats&sp={page}").text)
-'''
+csv_file.close()
+
+#2
+csv_file=open("cat_wiki.csv","w")
+csv_writer=csv.writer(csv_file)
+csv_writer.writerow(["Image Links"])
+
 driver = webdriver.Chrome()
-driver.get("https://www.loc.gov/search/?q=cats&sp=1")
+driver.get("https://www.wikipedia.org/")
+search=driver.find_element(By.ID, "searchInput")
+search.send_keys("cat")
+search.send_keys(Keys.RETURN)
 
-page=1
-for element in driver.find_elements(By.CLASS_NAME, "item-description"):
-    page+=1
-    print(element.find_element(By.CSS_SELECTOR,"span.item-description-title").text)
-    print(element.find_element(By.CSS_SELECTOR,"span.item-description-abstract").text,"\n")
-    driver.find_element(By.PARTIAL_LINK_TEXT, page).click()
-    if(page==5):
-        break
-
-time.sleep(5)
-driver.quit'''
+for element in driver.find_elements(By.TAG_NAME, "img"):
+    link=element.get_attribute("src")
+    csv_writer.writerow([link])
+driver.quit
