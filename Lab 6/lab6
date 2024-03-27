@@ -9,7 +9,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
-'''
+
 #1
 page=1
 library=requests.get("https://www.loc.gov/search/?q=cats&sp=1").text
@@ -45,7 +45,7 @@ for element in driver.find_elements(By.TAG_NAME, "img"):
     link=element.get_attribute("src")
     csv_writer.writerow([link])
 driver.quit
-'''
+
 #BONUS
 '''These lines are allowing us to write in the csv file'''
 csv_file=open("conangray_tour.csv","w")
