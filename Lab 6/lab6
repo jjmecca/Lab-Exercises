@@ -1,0 +1,11 @@
+from bs4 import BeautifulSoup
+import requests
+import html5lib
+import csv
+
+library=requests.get("https://www.loc.gov/search/?q=cats&sp=1").text
+soup=BeautifulSoup(library)
+
+for element in soup.find_all("div", class_="item-description"):
+    print(element.span.a.text.strip())
+    print(element.find("span",class_="item-description-abstract").text.strip(),"\n")
