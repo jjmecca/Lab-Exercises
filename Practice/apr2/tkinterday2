@@ -1,0 +1,65 @@
+from tkinter import * # * means everything
+'''
+root = Tk()   
+root.geometry("600x200") 
+
+def click():
+    Label1=Label(root,text="haiiii :3")
+    Label1.grid(row=1,column=0)
+def repeat():
+    i=0
+    while True:
+        i+=1
+        Label(root, text="HELPPP").grid(row=i,column=0)
+
+myLabel = Button(root, text="Hello World",width=15,cursor="coffee_mug",command=click)
+myLabel2 = Button(root, text="Quit",command=root.quit, font="Courier")
+myLabel3=Button(root, text="DONT CLICK ME", command=repeat) #maybe dont click this
+
+myLabel.grid(row=0,column=0)
+myLabel2.grid(row=0,column=1)
+myLabel3.grid(row=0,column=2)
+
+root.mainloop()
+'''
+
+import requests
+import json
+
+
+def weekly_forecast(lat, lon):
+    weather = requests.get(f"https://api.weather.gov/points/{lat},{lon}")
+
+    json = weather.json()
+    forecast = json["properties"]["forecast"]
+    daily_forecast = requests.get(forecast).json()
+
+    days = []
+    temps = []
+    
+    my_fore = ""
+    for section in daily_forecast["properties"]["periods"]:
+        days.append(section["name"])
+        temps.append(section["temperature"])
+    for i in range(14):
+        my_fore = f"{days[i]} - {temps[i]}"
+        Label(root, text=my_fore, font= ("Arial", 12)).pack()
+        
+root = Tk()
+root.geometry("900x600") 
+root.title("Weather App")
+lat=StringVar()
+lat.set("")
+lon=StringVar()
+lon.set("")
+label_user = Label(root, text="Latitude").pack()
+entry_lat = Entry(root, width=35, borderwidth=5,textvariable=lat).pack()
+label_pass = Label(root, text="Longitude").pack()
+entry_lon = Entry(root, width=35, borderwidth=5, textvariable=lon).pack()
+MyButton=Button(root, text="Get Forecast",command=lambda:weekly_forecast(lat.get(), lon.get()))
+MyButton.pack()
+quit_button = Button(root, text="Quit",command=root.destroy)
+quit_button.pack()
+
+root.mainloop()
+
