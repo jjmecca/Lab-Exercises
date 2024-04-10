@@ -29,6 +29,7 @@ url = f"https://api.spotify.com/v1/artists/{artist_id}"
 ids='5hIOd0FvjlgG4uLjXHkFWI?si=5RDtl2i1R3CgFnTONvk-lg','2CMlkzFI2oDAy5MbyV7OV5?si=_8RDrRaBQoy4Kh0ZgvJ8tw'
 albums_url = f"https://api.spotify.com/v1/albums/{ids[0]}"
 albums_url2 = f"https://api.spotify.com/v1/albums/{ids[1]}"
+albums_url2 = f"https://api.spotify.com/v1/albums/{ids[2]}"
 headers = {
     "Authorization": "Bearer " + token
 }
