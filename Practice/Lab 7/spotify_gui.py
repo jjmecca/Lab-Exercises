@@ -4,7 +4,7 @@ from tkinter import *
 from base64 import b64encode
 
 root = Tk()
-root.geometry("570x500") 
+root.geometry("580x500") 
 root.title("Spotify App")
 
 id = StringVar()
@@ -34,8 +34,8 @@ headers = {
     "Authorization": "Bearer " + token
 }
 
-def insert_text(text):
-    text.insert(END, text)
+def insert_text(text_):
+    text.insert(END, text_)
 
 def clear_text():
     text.delete("1.0", "end")
@@ -44,12 +44,12 @@ def artist_info(id):
     clear_text()
     response=requests.get(f"https://api.spotify.com/v1/artists/{id}/top-tracks?country=US",headers=headers)
     data=response.json()
-    followers=data['followers']['total']
-    name=data['name']
-    popularity=data['popularity']
-    genre=data['genres']
-    insert_text(f"Name: {name}\nFollowers: {followers}\nGenre(s): {genre}\nPopularity Level: {popularity}")
-
+    num=1
+    for i in data['tracks']:
+        track= f"{num}. {i["name"]}\n\n"
+        insert_text(track)
+        num+=1
+scrollbar=Scrollbar(root)
 entry_frame = Frame(root)
 entry_frame.grid(row=0, column=0)
 drop_frame = Frame(root)
@@ -59,11 +59,14 @@ label = Label(entry_frame , text="Enter Artist ID").pack()
 entry = Entry(entry_frame , width=35, borderwidth=5, textvariable=id).pack()
 button = Button(entry_frame , font = 24, text = "Get Information", command=lambda: artist_info(id.get()))
 button.pack(pady = 20)
-text = Text(root, height=16)
+text = Text(root, height=16,yscrollcommand=scrollbar.set)
 text.grid(columnspan=2)
+scrollbar.config(command=text.yview)
 
 button2 = Button(root, font = 24, text = "Close Window", 
                 command=root.destroy)
 button2.grid(columnspan=2, pady = 20)
+scrollbar.grid(row=1, column=2, rowspan=1, sticky="ns")
+
 
 root.mainloop()
