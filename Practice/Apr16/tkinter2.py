@@ -32,7 +32,7 @@ def change_window():
     home_window.forget()
     switch_button.forget()
     
-    different_window.tkraise()
+    different_window.tkraise() #.tkraise is not neccessary
     return_button.tkraise()
     different_window.pack()
     return_button.pack()
@@ -45,7 +45,9 @@ def return_home():
     switch_button.tkraise()
     home_window.pack()
     switch_button.pack()
-    
+#for project: could create two diff functions (< and >) to go back and
+#forth between houses. itll forget the last house and go to the next house thru
+#a list using the same variable
 #establish both buttons, only pack one to begin with     
 switch_button = Button(root, text="Go to new page", command=change_window)
 switch_button.pack() 
