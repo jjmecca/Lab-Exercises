@@ -19,7 +19,7 @@ user=Label(text="Username")
 user_entry=Entry()
 password=Label(text="Password")
 password_entry=Entry()
-submit=Button(text="Submit", command=login.destroy)
+submit=Button(text="Submit", command=login.destroy) #The destroy command is just for the sake of the fake facebook page
 
 user.pack()
 user_entry.pack()
