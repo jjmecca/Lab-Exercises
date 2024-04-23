@@ -1,10 +1,39 @@
 from tkinter import *
 from PIL import Image, ImageTk
 
+'''
+Creating this was definitely very tedious and annoying but not too difficult.
+First, I began with the basic frames which I made different colors for separation.
+Creating the labels/text was all very easy, it was just making them look right 
+was a bit difficult and time-consuming. I had a bit of trouble with the image, though,
+with the class slides and a few searches, I was able to figure out the issue. One thing
+I couldn't figure out was the lines between some buttons. I just couldn't find any simple
+solutions that would look any good. I also wasn't sure if you wanted us to make any of them
+buttons, being that they won't lead to anything, so I just made them labels.
+'''
+login = Tk()
+login.geometry("600x300") 
+login.title("Login")
+
+user=Label(text="Username")
+user_entry=Entry()
+password=Label(text="Password")
+password_entry=Entry()
+submit=Button(text="Submit", command=login.destroy)
+
+user.pack()
+user_entry.pack()
+password.pack()
+password_entry.pack()
+submit.pack()
+
+login.mainloop()
+
 winHeight=int(1030/1.4)
 winWidth=int(1106/1.4)
 root = Tk()
 root.geometry(f"{winWidth}x{winHeight}") 
+root.resizable(0,0)
 root.title("Facebook")
 
 topFrame=Frame(
